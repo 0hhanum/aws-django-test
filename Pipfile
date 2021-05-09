@@ -8,6 +8,8 @@ pillow = "*"
 django = "==2.2.5"
 django-seed = "*"
 django-dotenv = "*"
+eb = "*"
+awsebcli = "*"
 
 [dev-packages]
 black = "*"
