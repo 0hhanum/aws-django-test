@@ -103,7 +103,7 @@ else:
     DATABASES = {
         "default": {
             "ENGINE": "django.db.backends.postgresql",
-            "NAME": "djangopractice",
+            "NAME": "postgres",
             "PASSWORD": os.environ.get("PASSWORD"),
             "PORT": "5432",
             "USER": "postgres",
