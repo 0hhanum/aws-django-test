@@ -52,10 +52,7 @@ PROJECT_APPS = [
     "reviews.apps.ReviewsConfig",
 ]
 
-THIRD_PARTY_APPS = [
-    "django_seed",
-    "whitenoise.runserver_nostatic",
-]
+THIRD_PARTY_APPS = ["django_seed"]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + PROJECT_APPS
 
@@ -67,7 +64,6 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    "whitenoise.middleware.WhiteNoiseMiddleware",
 ]
 
 ROOT_URLCONF = "config.urls"
@@ -153,10 +149,7 @@ USE_TZ = True
 STATIC_URL = "/static/"
 ALLOWED_HOSTS = ["*"]
 X_FRAME_OPTIONS = "*"
-STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles/")
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "static"),
-]
+
 
 AUTH_USER_MODEL = "users.User"
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
