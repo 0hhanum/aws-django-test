@@ -149,7 +149,7 @@ USE_TZ = True
 STATIC_URL = "/static/"
 ALLOWED_HOSTS = ["*"]
 X_FRAME_OPTIONS = "*"
-STATIC_ROOT = "/var/www/static_myproject"
+
 
 AUTH_USER_MODEL = "users.User"
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
