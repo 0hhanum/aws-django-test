@@ -10,6 +10,7 @@ django-seed = "*"
 django-dotenv = "*"
 eb = "*"
 awsebcli = "*"
+whitenoise = "==2.0.6"
 
 [dev-packages]
 black = "*"
