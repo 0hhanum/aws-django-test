@@ -1,0 +1,33 @@
+{%load on_favs%}
+<div class="w-1/5">
+  <div class=" mb-6 px-2">
+    <a href="{% url 'movies:movie' movie.pk %}">
+      <div class="flex flex-col">
+        <div class="h-64 bg-cover bg-center rounded-lg mb-2 " style="background-image: url({{movie.cover_image.url}});"></div>
+        <span class="text-lg font-bold">{{movie.title}}</span>
+        <div class="flex">
+        <div class="flex flex-col">
+        <span class="text-sm mr-1" >{{movie.year}}</span>
+        <span class="text-xs mr-1"> 평점 <i class="fas fa-star text-red-500 text-xs mr-1"></i>{{movie.rating}}</span>
+        </div>
+        <div class="flex justify-end w-full items-center">
+          {%on_favs movie "movies" as on_favs_boolean %}
+          {% if user.is_authenticated %}
+          {% if on_favs_boolean %}
+          <a class="focus:outline-none	" href="{%url 'favs:toggle' movie.pk %}?type=movie&action=remove&next={{ request.path }}">
+          <button class="focus:outline-none bg-red-500 hover:bg-red-700 text-white font-bold h-8 px-4  mr-8 rounded-full"><i class="fas fa-heart"></i></button>   
+          </a>
+          {%else%}
+         <a class="focus:outline-none	" href="{%url 'favs:toggle' movie.pk %}?type=movie&action=add&next={{ request.path }}">
+         <button class="focus:outline-none bg-red-500 hover:bg-red-700 text-white font-bold h-8 px-4  mr-8 rounded-full">Add to Like!</button>   
+         </a>
+         {% endif %}
+         {% endif %}
+        </div>
+        </div>
+      </div>
+    </a>
+    
+  </div>
+
+</div>

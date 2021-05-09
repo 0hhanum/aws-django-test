@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+
+{% block page_title %}
+{{book.title}}
+{% endblock page_title %}
+
+{% block content %}
+  <div class="flex justify-center">
+
+    <div class="container-md mx-auto w-1/3 flex flex-col border rounded-xl shadow-xl px-8 py-6 mt-4">
+      <img src="{{book.cover_image.url}}" class="w-3/4 rounded place-self-center	" alt="">
+      <span class="text-xl font-bold my-2">{{book.title}}</span>
+      <span class="text-sm mr-1" >{{book.year}} {{book.category}}</span>
+      <span class="text-xs mr-1"> 평점 <i class="fas fa-star text-red-500 text-xs mr-1"></i>{{book.rating}}</span>
+      <div>
+        <div>Director : {{book.director}}</div>
+        <div>
+          <span class="font-bold">Casting</span>
+          <div class="flex flex-col">
+            {% for cast in book.cast.all %}
+            <span class="">{{cast}}</span> 
+            {% endfor %}
+          </div>
+        </div>
+        
+      </div>
+
+      <div class="bg-pink-500 hover:bg-pink-700 text-white font-bold rounded w-full mt-4 py-2 px-4 flex justify-center ">
+        <a class="mx-auto " href="{% url 'books:update' book.pk %}">Edit Book</a>
+      </div>
+      
+
+<div>
+{% if user.is_authenticated%}
+{%if not reviewed %}
+<div class="flex justify-center mt-8">
+  <form method="POST" enctype="multipart/form-data" class="bg-white shadow-md rounded px-8 py-8 my-4 " action="{% url 'reviews:create-review' 'book' book.pk %}?next={{ request.path }}">
+      {% csrf_token %}
+      <span class="text-xl font-bold my-2">Add Review</span>
+
+        {% if form.errors %}
+      <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+        <strong class="font-bold">{{form.errors}}</strong>
+
+
+      </div>
+      
+      {%else%}
+      
+      {% for field in form %}
+        <div class="mb-5 ">
+            <label class="block text-gray-700 font-bold text-sm" for="{{field.auto_id}}">{{field.label}}</label>
+            <div class=" shadow appearance-none border rounded w-full  text-gray-700 leading-loose focus:outline-none focus:shadow-outline">
+              {{field}}
+            </div>
+        </div>
+      {% endfor %}
+      
+      <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold rounded w-full mt-2 py-2 px-4">Add!</button>
+      {%endif%}
+  </form>
+{%endif%}
+{%endif%}
+</div>
+  {%for review in book.get_reviews%}
+
+<div class="border rounded-xl shadow-xl px-8 py-6 mt-4">
+  <span><i class="mr-1 fas fa-star fa-s text-red-500"></i>{{review.rating}}</span>
+  <span class="font-semibold">{{review.created_by}}:</span>
+  <p class="mt-2">{{review.text}}</p>
+  {%if review.created_by == user %}
+  <a class="flex justify-end w-full" href="{%url 'reviews:remove' review.pk%}?next={{ request.path }}">
+  <button class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-1 px-2 border border-blue-500 hover:border-transparent rounded">
+  Delete
+</button>
+  </a>
+  {%endif%}
+
+  
+</div>
+  {%endfor%}
+</div>
+</div>
+</div>
+
+{% endblock content %}
